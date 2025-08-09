@@ -1,0 +1,19 @@
+# Go build artifacts
+/bin/
+/dist/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+
+# Modules vendor (optional)
+/vendor/
+
+# IDE/editor
+.idea/
+.vscode/
+*.swp
+.DS_Store
