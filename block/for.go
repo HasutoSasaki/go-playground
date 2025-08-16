@@ -144,6 +144,30 @@ outer:
 	}
 }
 
+func ex14() {
+	fmt.Println("=== for Example 14 ===")
+	// break と continueで冗長になるパターン
+	evenVals := []int{2, 4, 6, 8, 10}
+	for i, v := range evenVals {
+		if i == 0 {
+			continue
+		}
+		fmt.Println(i, v)
+		if i == len(evenVals)-2 {
+			break
+		}
+	}
+}
+
+func ex15() {
+	fmt.Println("=== for Example 15 ===")
+	// ex14に比べて、開始位置と終了位置を決めてしまえばこっちの方がシンプル
+	evenVals := []int{2, 4, 6, 8, 10}
+	for i := 1; i < len(evenVals)-1; i++ {
+		fmt.Println(i, evenVals[i])
+	}
+}
+
 func main() {
 	ex1()
 	ex2()
@@ -158,4 +182,6 @@ func main() {
 	ex11()
 	ex12()
 	ex13()
+	ex14()
+	ex15()
 }
