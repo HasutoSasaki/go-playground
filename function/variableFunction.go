@@ -22,5 +22,5 @@ func main() {
 
 	myFuncVariable = f2
 	result = myFuncVariable("Hello")
-	fmt.Println(result)
+	fmt.Println(result) // 500 // 72+101+108+108+111 (ASCIIコードの値の合計)
 }
