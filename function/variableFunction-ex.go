@@ -11,7 +11,9 @@ func _sub(i int, j int) int { return i - j }
 func _mul(i int, j int) int { return i * j }
 func _div(i int, j int) int { return i / j }
 
-var opMap = map[string]func(int, int) int{ // 「文字列→関数」のマップ
+type opFuncType func(int, int) int
+
+var opMap = map[string]opFuncType{ // 「文字列→関数」のマップ
 	"+": _add,
 	"-": _sub,
 	"*": _mul,
