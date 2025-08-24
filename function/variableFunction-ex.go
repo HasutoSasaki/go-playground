@@ -1,17 +1,23 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"strconv"
 )
 
 // 同じシグネチャを持った一連の関数を作成
-func _add(i int, j int) int { return i + j }
-func _sub(i int, j int) int { return i - j }
-func _mul(i int, j int) int { return i * j }
-func _div(i int, j int) int { return i / j }
+func _add(i int, j int) (int, error) { return i + j, nil }
+func _sub(i int, j int) (int, error) { return i - j, nil }
+func _mul(i int, j int) (int, error) { return i * j, nil }
+func _div(i int, j int) (int, error) {
+	if j == 0 {
+		return 0, errors.New("0で割ることはできません")
+	}
+	return i / j, nil
+}
 
-type opFuncType func(int, int) int
+type opFuncType func(int, int) (int, error)
 
 var opMap = map[string]opFuncType{ // 「文字列→関数」のマップ
 	"+": _add,
@@ -26,6 +32,7 @@ func main() {
 		[]string{"2", "-", "3"},
 		[]string{"2", "*", "3"},
 		[]string{"2", "/", "3"},
+		[]string{"2", "/", "0"},
 		[]string{"2", "%", "3"},
 		[]string{"two", "+", "three"},
 		[]string{"2", "+", "three"},
@@ -53,7 +60,11 @@ func main() {
 			fmt.Print(expression, " -- ", err, "\n")
 			continue
 		}
-		result := opFunc(p1, p2) //実際の計算
+		result, err := opFunc(p1, p2) //実際の計算
+		if err != nil {
+			fmt.Print(expression, " -- ", err, "\n")
+			continue
+		}
 		fmt.Print(expression, " -> ", result, "\n")
 	}
 }
