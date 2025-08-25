@@ -27,6 +27,47 @@ func ex0601() {
 	d := &c // stringへのポインタ
 }
 
+type person struct {
+	FirstName  string
+	MiddleName *string
+	LastName   string
+}
+
+func ex0602() {
+
+	p := person{
+		FirstName:  "Pat",
+		MiddleName: "Perry", // ←コンパイル時のエラー
+		LastName:   "Peterson",
+	}
+	fmt.Println(p)
+}
+
+func ex0603() {
+
+	s := "Perry"
+	p := person{
+		FirstName:  "Pat",
+		MiddleName: &s, // 回避
+		LastName:   "Peterson",
+	}
+	fmt.Println(p)
+}
+
+func makePointer[T any](t T) *T { // ヘルパー関数
+	return &t
+}
+
+func ex0604() {
+	p := person{
+		FirstName:  "Pat",
+		MiddleName: makePointer("Perry"), //これならうまくいく
+		LastName:   "Peterson",
+	}
+	fmt.Println(p)             // {Pat 0xc000010250 Peterson}
+	fmt.Println(*p.MiddleName) // Perry
+}
+
 func main() {
 	ex0601()
 
