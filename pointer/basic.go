@@ -68,7 +68,21 @@ func ex0604() {
 	fmt.Println(*p.MiddleName) // Perry
 }
 
+func failedUpdate(g *int) {
+	x := 10
+	g = &x
+}
+
+func ex0606() {
+	var f *int // fはnil
+	failedUpdate(f)
+	fmt.Println(f) // <nil>
+}
+
 func main() {
 	ex0601()
-
+	ex0602()
+	ex0603()
+	ex0604()
+	ex0606()
 }
