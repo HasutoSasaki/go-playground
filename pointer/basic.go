@@ -97,6 +97,24 @@ func ex0607() {
 
 }
 
+// ポインタは最終の手段
+// 関数にポインタを渡して、構造体の中身を埋めるのではなく、関数が構造体インスタンスを生成して返すようにします
+// bad example
+func MakeFoo(f *Foo) error {
+	f.Field1 = "val"
+	f.Field2 = 20
+	return nil
+}
+
+// good example
+func MakeFoo() (Foo, error) {
+	f := Foo{
+		Field1: "val",
+		Field2: 20,
+	}
+	return f, nil
+}
+
 func main() {
 	ex0601()
 	ex0602()
