@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"encoding/json"
+	"fmt"
+)
 
 func ex0601() {
 	x := 10
@@ -113,6 +116,22 @@ func MakeFoo() (Foo, error) {
 		Field2: 20,
 	}
 	return f, nil
+}
+
+// 変数を変更するのにポインタ引数を使わなくてはならないのは関数がインターフェースを受け取るときだけです。
+func ex0609b() {
+	f := struct {
+		Name string // NameのNは大文字！小文字だと他パッケージからは見えない
+		Age  int
+	}{}
+
+	err := json.Unmarshal([]byte(`{"name": "小野小町", "occupation": "歌人", "age": 20}`), &f)
+	// 大文字小文字の違いを無視して、フィールドに対応付けてくれる
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Printf("%+v", f) // {Name:小野小町 Age:20}
 }
 
 func main() {
